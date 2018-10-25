@@ -30,13 +30,24 @@
 
 <script type="text/javascript">
 
-  $('[name=q]').keyup(function (){
-    $.ajax({
-      url: <%= posts_path %>,
-      type: 'GET',
-      dataType: 'script',
-      data: {q: $(this).val()}
-    })
+  $('[name=q]').keyup(function () {
+    if($(this).val().length > 2) {
+      $.ajax({
+        url: "<%= posts_path %>",
+        type: 'GET',
+        dataType: 'script',
+        data: {q: $(this).val()}
+      })
+    }
+
+    if(!this.value) {
+      $.ajax({
+        url: "<%= posts_path %>",
+        type: 'GET',
+        dataType: 'script',
+      })
+    }
+
   })
 
 </script>

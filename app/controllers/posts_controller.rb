@@ -6,11 +6,16 @@ class PostsController < ApplicationController
   def index
     @posts = Post.all
     @post = Post.new
-    @posts.where("title like ?", "%#{params[:q]}%") if params[:q].present?
+    @posts =  if params[:q].present?
+                Post.where("title like ?", "%#{params[:q]}%")
+              else
+                Post.all
+              end
     respond_to do |format|
       format.html
       format.js
       format.json { render json: @resource }
+    end
 
   end
 
